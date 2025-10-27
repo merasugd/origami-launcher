@@ -38,7 +38,14 @@ export class ModInstaller {
     }> {
         const stored = manager.getDefaultFilters(project_type as 'mod' | 'shader' | 'resourcepack') ?? {};
         const currentSort = defaults?.sort ?? stored.sort ?? 'relevance';
-        const currentVersionMatch = defaults?.versionMatch ?? ((stored.versionFilter?.length || 0) < 1 ? 'none' : stored.versionFilter?.length === 1 ? 'strict' : 'match') ?? 'strict';
+        const currentVersionMatch =
+            defaults?.versionMatch ??
+            ((stored.versionFilter?.length || 0) < 1
+                ? 'none'
+                : stored.versionFilter?.length === 1
+                ? 'strict'
+                : 'match');
+
         const currentCategories = defaults?.selectedCategories ?? stored.selectedCategories ?? [];
 
         const all_categories = (await this.modrinth.tags.getCategories(project_type)) || [];
